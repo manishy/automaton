@@ -6,18 +6,20 @@ class DFA extends Machine {
   }
 
   getFinalState(languageAlphabets, delta, currentState) {
-    let reducer = function(acc, element) {
+    let reducer = function (acc, alphabet) {
       let nextStateDelta = {};
       let nextPossibleStates = acc[currentState];
-      let nextState = nextPossibleStates[element];
-      nextStateDelta[nextState] = delta[nextPossibleStates[element]];
+      // console.log(nextPossibleStates, Object.values(acc));
+      // let nextPossibleStates = Object.values(acc)[0];
+      let nextState = nextPossibleStates[alphabet];
+      nextStateDelta[nextState] = delta[nextPossibleStates[alphabet]];
       currentState = nextState;
       return nextStateDelta;
     }
     let initialState = {};
     initialState[currentState] = delta[currentState];
     let finalState = languageAlphabets.reduce(reducer, initialState);
-    return currentState;
+    return finalState;
   }
 
   doesAccept(language) {
@@ -25,7 +27,9 @@ class DFA extends Machine {
     let currentState = this.initialState;
     let languageAlphabets = language.split("");
     let finalState = this.getFinalState(languageAlphabets, delta, currentState);
-    return this.isAcceptable(finalState);
+    // return this.isAcceptable(finalState);
+    return Object.keys(finalState).some((element)=>this.isAcceptable(element));
+    
   }
 }
 
