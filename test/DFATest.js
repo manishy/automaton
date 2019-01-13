@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const DFA = require("./DFA.js");
+const DFA = require("../src/DFA.js");
 
 let machine = {};
 describe('#DFA', () => {
@@ -13,17 +13,6 @@ describe('#DFA', () => {
     };
     machine = new DFA(tuple);
   });
-
-
-  describe('#isAcceptable',()=>{
-    it("should return true for acceptable state", ()=>{
-      assert.isTrue(machine.isAcceptable('q2'));
-    })
-
-    it("should return false for rejectable state", ()=>{
-      assert.isFalse(machine.isAcceptable('q1'));
-    })
-  })
 
   describe('#doesAccept', ()=>{
     it("should return true for those languages which includes odd number of zeros", () => {

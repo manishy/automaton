@@ -12,6 +12,10 @@ class Machine {
     let acceptableStates = this.finalStates;
     return acceptableStates.includes(state);
   }
+
+  doesAccept(language){
+    return null;
+  }
 }
 
 module.exports = Machine;

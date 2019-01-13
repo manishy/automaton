@@ -7,12 +7,12 @@ class DFA extends Machine {
 
   getFinalState(languageAlphabets, delta, currentState) {
     let reducer = function(acc, element) {
+      let nextStateDelta = {};
       let nextPossibleStates = acc[currentState];
-      let nextPos = nextPossibleStates[element];
-      let nextState = {};
-      nextState[nextPos] = delta[nextPossibleStates[element]];
-      currentState = nextPos;
-      return nextState;
+      let nextState = nextPossibleStates[element];
+      nextStateDelta[nextState] = delta[nextPossibleStates[element]];
+      currentState = nextState;
+      return nextStateDelta;
     }
     let initialState = {};
     initialState[currentState] = delta[currentState];
