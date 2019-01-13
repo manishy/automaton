@@ -7,6 +7,11 @@ class Machine {
     this.initialState = tuple["start-state"];
     this.finalStates = tuple["final-states"];
   }
+
+  isAcceptable(state) {
+    let acceptableStates = this.finalStates;
+    return acceptableStates.includes(state);
+  }
 }
 
 module.exports = Machine;
