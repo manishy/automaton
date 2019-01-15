@@ -5,7 +5,7 @@ class nFA extends Machine {
         super(tuple);
     }
 
-    getCurrentStates(state, allStates){
+    getActiveStates(state, allStates){
         let delta = this.delta;
         const epsilon ='e';
         let epsilonState = (delta[state]&&delta[state][epsilon]) || []; // have to handle for final state
@@ -17,22 +17,26 @@ class nFA extends Machine {
             return delta[state] && delta[state][epsilon];
         });
         if(containsEpsilon){
-            return uniqueEpsilonStates.flatMap((state)=>this.getCurrentStates(state, allStates)).concat(state);
+            return uniqueEpsilonStates.flatMap((state)=>this.getActiveStates(state, allStates)).concat(state);
         }
         return allStates.concat(state);
     }
 
-    doesAccept(language){
+    getfinalStates(languageAlphabets){
         let self = this;
         let delta = self.delta;
-        let langAlphabets = language.split("");
-        let initialStates = this.getCurrentStates(this.initialState,[]);
+        let initialStates = this.getActiveStates(this.initialState,[]);
         let getNextStates = function(currentStates, alphabet){
             let nextPossibleStates = currentStates.flatMap((state) => (delta[state] && delta[state][alphabet]) || []);
-            return nextPossibleStates.flatMap((state)=>self.getCurrentStates(state,[]));
+            return nextPossibleStates.flatMap((state)=>self.getActiveStates(state,[]));
         }
-        let finalStates = langAlphabets.reduce(getNextStates, initialStates)
-        // console.log(finalStates);
+        let finalStates = languageAlphabets.reduce(getNextStates, initialStates);
+        return finalStates;
+    }
+
+    doesAccept(language){
+        let langAlphabets = language.split("");
+        let finalStates = this.getfinalStates(langAlphabets);
         return finalStates.some((state)=>this.isAcceptable(state));
       
     }
