@@ -5,7 +5,9 @@ class DFA extends Machine {
     super(tuple);
   }
 
-  getFinalState(languageAlphabets, delta, currentState) {
+  getFinalState(languageAlphabets) {
+    let currentState = this.initialState;
+    let delta = this.delta;
     let getNextState = function(initialState, alphabet){
       return delta[initialState][alphabet];
     }
@@ -14,7 +16,7 @@ class DFA extends Machine {
   }
 
   doesAccept(language) {
-    let finalState = this.getFinalState(language.split(""), this.delta, this.initialState);
+    let finalState = this.getFinalState(language.split(""));
     return this.isAcceptable(finalState);
   }
 }
