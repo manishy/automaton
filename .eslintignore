@@ -1,0 +1,6 @@
+coverage
+cypress
+test
+src/models/diceDev.js
+experiment.js
+testings/*

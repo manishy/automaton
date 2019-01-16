@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha test --recursive",
     "coverage": "nyc mocha",
-    "reporter": "nyc --reporter=lcov --reporter=text-lcov npm test"
+    "reporter": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "linter": "./node_modules/.bin/eslint .",
+    "fix": "./node_modules/.bin/eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/manishy/automaton#readme",
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "eslint": "^5.12.0"
   }
 }
