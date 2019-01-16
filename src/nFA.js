@@ -1,14 +1,23 @@
 const Machine = require("./Machine.js");
 
+
+const getUniqueOf = function(arr){
+    return arr.reduce((acc, element)=>{
+        if(!acc.includes(element)){
+            acc.push(element);
+        }
+        return acc;
+    },[])
+}
 class nFA extends Machine {
     constructor(tuple) {
         super(tuple);
     }
 
-    getActiveStates(state, allStates){
+    getActiveStates(state, allStates){ // gives some duplicate data, have to fix it
         let delta = this.delta;
         const epsilon ='e';
-        let epsilonState = (delta[state]&&delta[state][epsilon]) || []; // have to handle for final state
+        let epsilonState = (delta[state]&&delta[state][epsilon]) || [];
         let uniqueEpsilonStates = epsilonState.filter((state)=>{
             return (!allStates.includes(state));
         });
@@ -30,7 +39,7 @@ class nFA extends Machine {
             let nextPossibleStates = currentStates.flatMap((state) => (delta[state] && delta[state][alphabet]) || []);
             return nextPossibleStates.flatMap((state)=>self.getActiveStates(state,[]));
         }
-        let finalStates = languageAlphabets.reduce(getNextStates, initialStates);
+        let finalStates = getUniqueOf(languageAlphabets.reduce(getNextStates, initialStates));
         return finalStates;
     }
 
@@ -38,7 +47,6 @@ class nFA extends Machine {
         let langAlphabets = language.split("");
         let finalStates = this.getfinalStates(langAlphabets);
         return finalStates.some((state)=>this.isAcceptable(state));
-      
     }
 }
 

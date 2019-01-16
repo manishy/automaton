@@ -2,7 +2,7 @@ const testScenarios = require('../resources/testScenarios.json');
 const {assert} = require('chai');
 const DFA = require("../src/DFA");
 
-describe('Test scenarios from JSON', () => {
+describe('Test scenarios from JSON for DFA', () => {
     const dfaTestCases = testScenarios.filter(testCase => testCase.type == "dfa");
     dfaTestCases.forEach(scenario=>{
         describe(`should give true when given input string contains ${scenario.name}` ,() => {

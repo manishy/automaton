@@ -3,7 +3,7 @@ const {assert} = require('chai');
 const nFA = require("../src/nFA");
 
 
-describe('Test scenarios from JSON', () => {
+describe('Test scenarios from JSON for nFA', () => {
     const nfaTestCases = testScenarios.filter(testCase => testCase.type == "nfa");
    
     nfaTestCases.forEach(scenario=>{
