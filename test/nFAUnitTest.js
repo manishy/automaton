@@ -51,10 +51,10 @@ describe('#getActiveStates', () => {
 
     describe('#getfinalStates',()=>{
         it('should give final states for one epsilon',()=>{
-            assert.deepEqual(machine.getfinalStates('01'.split('')), ['q4']);
-            assert.deepEqual(machine.getfinalStates('10'.split('')), ['q7']);
-            assert.deepEqual(machine.getfinalStates('10111'.split('')), []);
-            assert.deepEqual(machine.getfinalStates('01010101'.split('')), ['q4']);
+            assert.deepEqual(machine.getfinalStates(['q1'],'01'.split('')), ['q4']);
+            assert.deepEqual(machine.getfinalStates(['q1'],'10'.split('')), ['q7']);
+            assert.deepEqual(machine.getfinalStates(['q1'],'10111'.split('')), []);
+            assert.deepEqual(machine.getfinalStates(['q1'],'01010101'.split('')), ['q4']);
         })
 
         it('should give final states for multiple epsilon',()=>{
@@ -71,10 +71,10 @@ describe('#getActiveStates', () => {
                 "final-states": [ "q6" ]
             }
             machine = new nFA(nfaTuple);
-            console.log(machine.getfinalStates('101'.split('')));
-            assert.deepEqual(machine.getfinalStates('0'.split('')), [ 'q6', 'q3', 'q2', 'q5', 'q4' ]);
-            assert.deepEqual(machine.getfinalStates('01'.split('')), [ 'q6', 'q3', 'q5', 'q4' ]);
-            assert.deepEqual(machine.getfinalStates('101'.split('')), [ 'q6', 'q3' ]);
+            // console.log(machine.getfinalStates('101'.split('')));
+            assert.deepEqual(machine.getfinalStates(['q1'],'0'.split('')), [ 'q6', 'q3', 'q2', 'q5', 'q4' ]);
+            assert.deepEqual(machine.getfinalStates(['q1'],'01'.split('')), [ 'q6', 'q3', 'q5', 'q4' ]);
+            assert.deepEqual(machine.getfinalStates(['q1'],'101'.split('')), [ 'q6', 'q3' ]);
         })
     })
   })  

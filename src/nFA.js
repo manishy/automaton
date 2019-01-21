@@ -1,6 +1,5 @@
 const Machine = require("./Machine.js");
 
-
 const getUniqueOf = function(arr){
   return arr.reduce((acc, element)=>{
     if(!acc.includes(element)){
@@ -9,21 +8,21 @@ const getUniqueOf = function(arr){
     return acc;
   },[]);
 };
-class nFA extends Machine {
+
+class NFA extends Machine {
   constructor(tuple) {
     super(tuple);
   }
 
   getActiveStates(state, allStates){ // gives some duplicate data, have to fix it
-    let delta = this.delta;
     const epsilon ='e';
-    let epsilonState = (delta[state]&&delta[state][epsilon]) || [];
+    let epsilonState = (this.delta[state]&&this.delta[state][epsilon]) || [];
     let uniqueEpsilonStates = epsilonState.filter((state)=>{
       return (!allStates.includes(state));
     });
     allStates = uniqueEpsilonStates.concat(allStates);
     let containsEpsilon = uniqueEpsilonStates.some((state)=>{
-      return delta[state] && delta[state][epsilon];
+      return this.delta[state] && this.delta[state][epsilon];
     });
     if(containsEpsilon){
       return uniqueEpsilonStates.flatMap((state)=>this.getActiveStates(state, allStates)).concat(state);
@@ -31,23 +30,22 @@ class nFA extends Machine {
     return allStates.concat(state);
   }
 
-  getfinalStates(languageAlphabets){
-    let self = this;
-    let delta = self.delta;
-    let initialStates = this.getActiveStates(this.initialState,[]);
-    let getNextStates = function(currentStates, alphabet){
-      let nextPossibleStates = currentStates.flatMap((state) => (delta[state] && delta[state][alphabet]) || []);
-      return nextPossibleStates.flatMap((state)=>self.getActiveStates(state,[]));
-    };
-    let finalStates = getUniqueOf(languageAlphabets.reduce(getNextStates, initialStates));
+  getNextStates(currentStates, alphabet){
+    let nextPossibleStates = currentStates.flatMap((state) => (this.delta[state] && this.delta[state][alphabet]) || []);
+    return nextPossibleStates.flatMap((state)=>this.getActiveStates(state,[]));
+  }
+
+  getfinalStates(currentStates, languageAlphabets){
+    let initialStates = this.getActiveStates(currentStates,[]);
+    let finalStates = getUniqueOf(languageAlphabets.reduce(this.getNextStates.bind(this), initialStates));
     return finalStates;
   }
 
   doesAccept(language){
     let langAlphabets = language.split("");
-    let finalStates = this.getfinalStates(langAlphabets);
+    let finalStates = this.getfinalStates(this.initialState, langAlphabets);
     return finalStates.some((state)=>this.isAcceptable(state));
   }
 }
 
-module.exports = nFA;
+module.exports = NFA;
