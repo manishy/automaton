@@ -23,8 +23,8 @@ describe('#getActiveStates', () => {
     });
   
     it("should return all active states for a given state which have one epsilon", ()=>{
-        assert.deepEqual(machine.getActiveStates("q1",[]), ['q2', 'q5', 'q1']);
-        assert.deepEqual(machine.getActiveStates("q2",[]), ['q2']);
+        assert.deepEqual(machine.getActiveStates("q1"), ['q2', 'q5', 'q1']);
+        assert.deepEqual(machine.getActiveStates("q2"), ['q2']);
 
     })
 
@@ -44,8 +44,8 @@ describe('#getActiveStates', () => {
             ]
         }
         machine = new nFA(nfaTuple);
-        console.log(machine.getActiveStates('q2',[]));
-        assert.deepEqual(machine.getActiveStates("q1",[]), ['q1']);
+        console.log(machine.getActiveStates('q2'));
+        assert.deepEqual(machine.getActiveStates("q1"), ['q1']);
         // assert.deepEqual(machine.getActiveStates("q2",[]), ['q2','q3','q6']); // getting duplicate data need to fix it
     })
 

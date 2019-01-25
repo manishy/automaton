@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha test --recursive",
     "coverage": "nyc mocha",
-    "reporter": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "reporter": "nyc --reporter=lcov --reporter=text-lcov npm test && open coverage/lcov-report/index.html",
     "linter": "./node_modules/.bin/eslint .",
     "fix": "./node_modules/.bin/eslint . --fix"
   },

@@ -6,12 +6,10 @@ class DFA extends Machine {
   }
 
   getFinalState(languageAlphabets) {
-    let currentState = this.initialState;
-    let delta = this.delta;
-    let getNextState = function(initialState, alphabet){
-      return delta[initialState][alphabet];
+    let getNextState = (initialState, alphabet)=>{
+      return this.delta[initialState][alphabet];
     };
-    let finalState = languageAlphabets.reduce(getNextState, currentState);
+    let finalState = languageAlphabets.reduce(getNextState, this.initialState);
     return finalState;
   }
 

@@ -1,20 +1,12 @@
-const Machine = require("./Machine.js");
-
-const getUniqueOf = function(arr){
-  return arr.reduce((acc, element)=>{
-    if(!acc.includes(element)){
-      acc.push(element);
-    }
-    return acc;
-  },[]);
-};
+const Machine = require("./Machine");
+const Utils = require("../Utils/listUtils");
 
 class NFA extends Machine {
   constructor(tuple) {
     super(tuple);
   }
 
-  getActiveStates(state, allStates){ // gives some duplicate data, have to fix it
+  getActiveStates(state, allStates=[]){ // gives some duplicate data, have to fix it
     const epsilon ='e';
     let epsilonState = (this.delta[state]&&this.delta[state][epsilon]) || [];
     let uniqueEpsilonStates = epsilonState.filter((state)=>{
@@ -36,8 +28,8 @@ class NFA extends Machine {
   }
 
   getfinalStates(currentStates, languageAlphabets){
-    let initialStates = this.getActiveStates(currentStates,[]);
-    let finalStates = getUniqueOf(languageAlphabets.reduce(this.getNextStates.bind(this), initialStates));
+    let initialStates = this.getActiveStates(currentStates);
+    let finalStates = Utils.getUniqueOf(languageAlphabets.reduce(this.getNextStates.bind(this), initialStates));
     return finalStates;
   }
 
