@@ -44,7 +44,7 @@ describe('#getActiveStates', () => {
             ]
         }
         machine = new nFA(nfaTuple);
-        console.log(machine.getActiveStates('q2'));
+        // console.log(machine.getActiveStates('q2'));
         assert.deepEqual(machine.getActiveStates("q1"), ['q1']);
         // assert.deepEqual(machine.getActiveStates("q2",[]), ['q2','q3','q6']); // getting duplicate data need to fix it
     })

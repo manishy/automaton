@@ -10,7 +10,7 @@ class NFAToDFA extends NFA {
 
   getInitialStateForDFA() {
     let dfaInitialState = this.getActiveStates(this.initialState).sort();
-    return dfaInitialState.join('');
+    return Utils.getUniqueOf(dfaInitialState).join('');
   }
 
   getFinalStatesForDfa(){

@@ -2,7 +2,7 @@ const {assert} = require('chai');
 const nFAToDFA = require("../src/nFAToDFA");
 
 describe('#NfaToDfa', ()=>{
-    const nfaTuple = {
+    let nfaTuple = {
         states: ['q0', 'q1', 'q2'],
         alphabets: ['a', 'b'],
         delta: {
@@ -17,6 +17,48 @@ describe('#NfaToDfa', ()=>{
       describe('#getInitialStateForDFA',()=>{
         it('should return initial state for DFA according to nFA tuple', ()=>{
             assert.deepEqual(Machine.getInitialStateForDFA(), 'q0q2');
+        })
+        it('should return initial state for DFA according to nFA tuple in case of duplicate ', ()=>{
+            let nfaTuple = {
+                states: [ "q1", "q3", "q9", "q7", "q2", "q8", "q5", "q6", "q4"],
+                alphabets: [ "1", "0"],
+                delta: {
+                  "q1": {
+                    "e": [  "q2",  "q4"]
+                  },
+                  "q3": {
+                    "0": [ "q3" ]
+                  },
+                  "q9": {
+                    "e": [ "q7"]
+                  },
+                  "q7": {
+                    "1": [ "q8"],
+                    "e": [ "q9" ]
+                  },
+                  "q2": {
+                    "0": ["q3"]
+                  },
+                  "q8": {
+                    "0": [ "q9"]
+                  },
+                  "q5": {
+                    "1": ["q6"]
+                  },
+                  "q6": {
+                    "e": [  "q7",  "q4"]
+                  },
+                  "q4": {
+                    "0": [ "q5"],
+                    "e": [ "q6"]
+                  }
+                },
+                "start-state": "q1",
+                "final-states": [ "q3", "q9", "q6"]
+              }
+            let nfaToDfaMachine = new nFAToDFA(nfaTuple);
+            // console.log(nfaToDfaMachine.getInitialStateForDFA());
+            assert.equal(nfaToDfaMachine.getInitialStateForDFA() ,'q1q2q4q6q7q9')
         })
       })
 
@@ -66,7 +108,7 @@ describe('#NfaToDfa', ()=>{
                 'q0q1q2': {'a': 'q0q1q2',  'b': 'q1q2'}
               }
             //   console.log(Machine.getDfaDelta());
-              console.log(Machine.getDfaTuple());
+            //   console.log(Machine.getDfaTuple());
               assert.deepEqual(Machine.getDfaDelta()['q0'], {'a': '', 'b': 'q1'});
         })
     })
