@@ -22,8 +22,22 @@ describe('#NfaToDfa', ()=>{
 
       describe('#getFinalStatesForDfa', ()=>{
           it('should give final states for Dfa according to Nfa tuple',()=>{
-            //   console.log(Machine.getFinalStatesForDfa());
               assert.deepEqual(Machine.getFinalStatesForDfa(),  [ 'q0', 'q0q1', 'q0q1q2', 'q0q2' ]);
+          })
+      })
+
+      describe('#getNextStatesForDfa', ()=>{
+          it('should give next states for dfa', ()=>{
+            //   console.log(nextDfaState);
+            assert.equal(Machine.getNextDfaState(['q0'], 'b'), 'q1')
+            assert.equal(Machine.getNextDfaState(['q1'], 'a'), 'q1q2')
+            assert.equal(Machine.getNextDfaState(['q1'], 'b'), 'q2')
+            assert.equal(Machine.getNextDfaState(['q2'], 'a'), 'q0q2')
+          })
+
+          it('should return nextDfaState as D for Dead state', ()=>{
+            assert.equal(Machine.getNextDfaState(['q0'], 'a'), 'D')
+            assert.equal(Machine.getNextDfaState(['q2'], 'b'), 'D')
           })
       })
   

@@ -26,6 +26,13 @@ class NFAToDFA extends NFA {
     });
   }
 
+  getNextDfaState(currentState, inputChar){
+    let nextDfaState = this.getNextStates([currentState], inputChar).sort();
+    if(!nextDfaState.length){
+      return 'D';
+    }
+    return nextDfaState.join('');
+  }
 }
 
 
