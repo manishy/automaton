@@ -24,7 +24,7 @@ const getUniqueOf = function(arr){
 
 const getUnionOf = function(list1, list2){
   let combined = list1.concat(list2);
-  return getUniqueOf(combined);
+  return getUniqueOf(combined).sort();
 };
 
 module.exports = {
