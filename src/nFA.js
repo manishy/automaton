@@ -24,7 +24,7 @@ class NFA extends Machine {
 
   getNextStates(currentStates, alphabet){
     let nextPossibleStates = currentStates.flatMap((state) => (this.delta[state] && this.delta[state][alphabet]) || []);
-    return nextPossibleStates.flatMap((state)=>this.getActiveStates(state,[]));
+    return nextPossibleStates.flatMap((state)=>this.getActiveStates(state));
   }
 
   getfinalStates(currentStates, languageAlphabets){
