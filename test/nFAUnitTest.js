@@ -77,6 +77,14 @@ describe('#getActiveStates', () => {
             assert.deepEqual(machine.getfinalStates(['q1'],'101'.split('')), [ 'q6', 'q3' ]);
         })
     })
+
+    describe('#getNextStates', ()=>{
+        it('should return next states with respect to current states', ()=>{
+            assert.deepEqual(machine.getNextStates(['q1'], '1'), [])
+            assert.deepEqual(machine.getNextStates(['q2'], '0'), ['q3'])
+            assert.deepEqual(machine.getNextStates(['q7'], '1'), ['q6'])
+        })
+    })
   })  
   
   

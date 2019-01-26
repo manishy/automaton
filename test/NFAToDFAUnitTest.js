@@ -98,19 +98,46 @@ describe('#NfaToDfa', ()=>{
       describe('#getDfaDelta', ()=>{
         it('should return delta for dfa according nfaDelta',()=>{
             let expectedDelta = {
-                'D' :     {'a': 'D',       'b': 'D'},
-                'q0':     {'a': 'D',       'b': 'q1'},
+                '' :      {'a': '',       'b': ''},
+                'q0':     {'a': '',       'b': 'q1'},
                 'q1':     {'a': 'q1q2',    'b': 'q2'},
-                'q2':     {'a': 'q0q2',    'b': 'D'},
+                'q2':     {'a': 'q0q2',    'b': ''},
                 'q0q1':   {'a': 'q1q2',    'b': 'q1q2'},
                 'q0q2':   {'a': 'q0q2',    'b': 'q1'},
                 'q1q2':   {'a': 'q0q1q2',  'b': 'q2'},
                 'q0q1q2': {'a': 'q0q1q2',  'b': 'q1q2'}
               }
-            //   console.log(Machine.getDfaDelta());
-            //   console.log(Machine.getDfaTuple());
-              assert.deepEqual(Machine.getDfaDelta()['q0'], {'a': '', 'b': 'q1'});
+              assert.deepEqual(Machine.getDfaDelta()['q0'],     expectedDelta['q0']);
+              assert.deepEqual(Machine.getDfaDelta()['q1'],     expectedDelta['q1']);
+              assert.deepEqual(Machine.getDfaDelta()['q2'],     expectedDelta['q2']);
+              assert.deepEqual(Machine.getDfaDelta()[''],       expectedDelta['']);
+              assert.deepEqual(Machine.getDfaDelta()['q0q1'],   expectedDelta['q0q1']);
+              assert.deepEqual(Machine.getDfaDelta()['q0q2'],   expectedDelta['q0q2']);
+              assert.deepEqual(Machine.getDfaDelta()['q1q2'],   expectedDelta['q1q2']);
+              assert.deepEqual(Machine.getDfaDelta()['q0q1q2'], expectedDelta['q0q1q2']);
         })
+    })
+    describe('#getDfaTuple', ()=>{
+      it('should return dfaTuple according to nfaTuple', ()=>{
+        let expectedTuple = { states: [ '', 'q0', 'q0q1', 'q0q1q2', 'q0q2', 'q1', 'q1q2', 'q2' ],
+        alphabets: [ 'a', 'b' ],
+        delta:
+         { '':       { 'a': '',       'b': '' },
+           'q0':     { 'a': '',       'b': 'q1' },
+           'q0q1':   { 'a': 'q1q2',   'b': 'q1q2' },
+           'q0q1q2': { 'a': 'q0q1q2', 'b': 'q1q2' },
+           'q0q2':   { 'a': 'q0q2',   'b': 'q1' },
+           'q1':     { 'a': 'q1q2',   'b': 'q2' },
+           'q1q2':   { 'a': 'q0q1q2', 'b': 'q2' },
+           'q2':     { 'a': 'q0q2',   'b': '' } },
+        'start-state': 'q0q2',
+        'final-states': [ 'q0', 'q0q1', 'q0q1q2', 'q0q2' ] };
+        // console.log(Machine.getDfaTuple());
+        assert.equal(Machine.getDfaTuple()['start-state']      ,expectedTuple['start-state'])
+        assert.deepEqual(Machine.getDfaTuple()['final-states'] ,expectedTuple['final-states'])
+        assert.deepEqual(Machine.getDfaTuple()['alphabets']    ,expectedTuple['alphabets'])
+        assert.deepEqual(Machine.getDfaTuple()['delta']        ,expectedTuple['delta'])
+      })
     })
   
 })
