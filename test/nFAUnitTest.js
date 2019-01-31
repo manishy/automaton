@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const nFA = require("../src/nFA");
+const nFA = require("../src/nFA.js");
 
 let machine = {};
 describe('#getActiveStates', () => {

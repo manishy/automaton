@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const nFAToDFA = require("../src/nFAToDFA");
+const nFAToDFA = require("../src/nFAToDFA.js");
 
 describe('#NfaToDfa', ()=>{
     let nfaTuple = {

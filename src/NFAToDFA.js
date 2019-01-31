@@ -1,5 +1,5 @@
-const NFA = require("./NFA");
-const Utils = require("../Utils/listUtils");
+const NFA = require("./NFA.js");
+const Utils = require("../Utils/listUtils.js");
 
 class NFAToDFA extends NFA {
   constructor(tuple) {

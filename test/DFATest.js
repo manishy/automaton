@@ -1,6 +1,6 @@
 const testScenarios = require('../resources/testScenarios.json');
 const {assert} = require('chai');
-const DFA = require("../src/DFA");
+const DFA = require("../src/DFA.js");
 
 describe('Test scenarios from JSON for DFA', () => {
     const dfaTestCases = testScenarios.filter(testCase => testCase.type == "dfa");

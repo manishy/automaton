@@ -1,5 +1,5 @@
-const Machine = require("./Machine");
-const Utils = require("../Utils/listUtils");
+const Machine = require("./Machine.js");
+const Utils = require("../Utils/listUtils.js");
 
 class NFA extends Machine {
   constructor(tuple) {

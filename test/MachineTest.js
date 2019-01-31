@@ -1,4 +1,4 @@
-const Machine = require("../src/Machine");
+const Machine = require("../src/Machine.js");
 const {assert} = require('chai');
 
 describe('#Machine', ()=>{

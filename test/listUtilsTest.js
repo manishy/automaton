@@ -1,5 +1,5 @@
 const {assert} = require('chai');
-const Utils = require("../Utils/listUtils")
+const Utils = require("../Utils/listUtils.js")
 
 describe('#listUtils',()=>{
     describe('#getSubSetsOf', ()=>{

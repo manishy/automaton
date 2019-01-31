@@ -1,7 +1,7 @@
 const testScenarios = require('../resources/testScenarios.json');
 const {assert} = require('chai');
-const nFAToDFA = require("../src/NFAToDFA");
-const DFA = require("../src/DFA");
+const nFAToDFA = require("../src/NFAToDFA.js");
+const DFA = require("../src/DFA.js");
 
 
 describe('Test scenarios from JSON for nFA', () => {
